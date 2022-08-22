@@ -4,8 +4,10 @@ import QRCode from "qrcode";
 const Main = () => {
   const [url, setUrl] = useState("");
   const [src, setSrc] = useState("");
+  const urlField = document.getElementById("url");
   const handleChange = (e) => {
     setUrl(e.target.value);
+    urlField.setCustomValidity("");
   };
   var opts = {
     errorCorrectionLevel: "H",
@@ -15,19 +17,29 @@ const Main = () => {
     margin: 1,
   };
   const handleClick = (e) => {
-    QRCode.toDataURL(url, opts).then((data) => {
-      setSrc(data);
-    });
+    
+    if (urlField.validity.typeMismatch) {
+      urlField.setCustomValidity("I am expecting an e-mail address!");
+      urlField.reportValidity();
+    } else {
+      e.preventDefault();
+      urlField.setCustomValidity("");
+      QRCode.toDataURL(url, opts).then((data) => {
+        setSrc(data);
+      });
+    }
+
+    //  return false;
   };
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-  }
+  // const handleSubmit = (e) =>{
+
+  // }
   return (
     <div className="container">
       <div className="row mt-3 mx-auto">
         <div className="col-lg-4 pt-5 text-center">
           <img
-            src="img/qr-code.svg"
+            src="qr-code-generator/img/qr-code.svg"
             alt="qr-code"
             className="img-responsive"
             height="250"
@@ -40,7 +52,7 @@ const Main = () => {
             quickly. Enter your URL below to generate a QR Code and download the
             image.
           </p>
-          <form action="" onSubmit={handleSubmit}>
+          <form action="">
             <div className="form-floating mb-3">
               <input
                 type="url"
