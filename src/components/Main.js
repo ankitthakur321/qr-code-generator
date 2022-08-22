@@ -28,12 +28,8 @@ const Main = () => {
         setSrc(data);
       });
     }
-
-    //  return false;
   };
-  // const handleSubmit = (e) =>{
 
-  // }
   return (
     <div className="container">
       <div className="row mt-3 mx-auto">
