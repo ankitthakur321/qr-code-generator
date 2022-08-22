@@ -14,11 +14,14 @@ const Main = () => {
     scale: 7,
     margin: 1,
   };
-  const handleClick = () => {
+  const handleClick = (e) => {
     QRCode.toDataURL(url, opts).then((data) => {
       setSrc(data);
     });
   };
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+  }
   return (
     <div className="container">
       <div className="row mt-3 mx-auto">
@@ -37,27 +40,29 @@ const Main = () => {
             quickly. Enter your URL below to generate a QR Code and download the
             image.
           </p>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              id="url"
-              name="url"
-              value={url}
-              onChange={handleChange}
-              placeholder="Enter Website URL"
-            />
-            <label htmlFor="floatingInput">Website URL</label>
-          </div>
-          <div className="d-grid">
-            <button
-              className="btn btn-outline-success"
-              type="button"
-              onClick={handleClick}
-            >
-              Generate QR-Code
-            </button>
-          </div>
+          <form action="" onSubmit={handleSubmit}>
+            <div className="form-floating mb-3">
+              <input
+                type="url"
+                className="form-control"
+                id="url"
+                name="url"
+                value={url}
+                onChange={handleChange}
+                placeholder="Enter Website URL"
+              />
+              <label htmlFor="floatingInput">Website URL</label>
+            </div>
+            <div className="d-grid">
+              <button
+                className="btn btn-outline-success"
+                type="submit"
+                onClick={handleClick}
+              >
+                Generate QR-Code
+              </button>
+            </div>
+          </form>
         </div>
         <div
           className="col-lg-4 pt-5 text-center"
