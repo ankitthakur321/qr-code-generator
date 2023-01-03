@@ -19,7 +19,7 @@ const Main = () => {
   const handleClick = (e) => {
     
     if (urlField.validity.typeMismatch) {
-      urlField.setCustomValidity("I am expecting an e-mail address!");
+      urlField.setCustomValidity("I am expecting the URL!");
       urlField.reportValidity();
     } else {
       e.preventDefault();
